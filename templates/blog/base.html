@@ -1,0 +1,122 @@
+{% load static %}
+{% load base_tags %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/assets/css/main.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/assets/css/slider-pro.min.css' %}" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/assets/css/examples.css' %}" media="screen"/>	
+	<link rel="stylesheet" href="{% static 'blog/assets/css/owl.theme.default.min.css' %}">
+	<title>{% block title %}پیشگامان{% endblock %}</title>
+</head>
+<body>
+	<header>
+		<nav >
+			<div class="btn"><i class="fa fa-bars"></i>مینو </div>
+			<div class="logo">
+				<div class="img" style="background-image:url({% static 'blog/assets/images/logo.png' %});"></div>
+			</div>
+			<ul class="nav">
+				<li>
+					<div class="item">
+						<a href="{% url 'blog:home' %}">
+							صفحه اصلی
+						</a>
+					</div>
+				</li>
+				{% category_navbar %}
+			</ul>
+			<div class="liyer"></div>
+			<div class="left">
+				<div class="search-btn"><i class="fa fa-search"></i></div>
+				<form action="{% url 'blog:search_list' %}">
+					<input type="search" name="q">
+					<button class="btn">جستجو</button>
+				</form>
+				<div class="login-wrapper">
+					<div class="leyar"></div>
+					<div class="login">
+						{% if request.user.is_authenticated %}
+							<a href="{% url 'account:profile' %}" class="user">
+								<i class="fa fa-user"></i>
+								<p class="name">{{request.user.get_full_name}}</p>
+							</a>
+						{% else %}
+							<p>ورود / ایجاد حساب</p>
+							<div class="login-box">
+								<h3 class="title">ورود به سایت</h3>
+								<hr>
+								<a href="{% url 'login' %}"><i class="fa-solid fa-user"></i> ورود با حساب کاربری</a>						
+								<a href="{% url 'account:signup' %}"><i class="fa-regular fa-calendar-plus"></i> ایجاد حساب کاربری</a>						
+								<a href="{% url 'password_reset' %}"><i class="fa-solid fa-trash-can-arrow-up"></i>فراموشی گذرواٰژه</a>						
+								<a href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa-brands fa-google"></i> ورود / ایجاد حساب با گوگل</a>
+								<a href="{% url 'social:begin' 'facebook' %}"><i class="fab fa-facebook"></i> ورود / ایجاد حساب با فیسبوک</a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	{% block main %}{% endblock %}
+	<footer>
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+        <ul class="social_icon">
+            <li><a href="https://facebook.com/peshgamanfinance">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </a></li>
+            <li><a href="https://t.me/peshgaman_youtube">
+                    <ion-icon name="" class="fab fa-telegram"></ion-icon>
+                </a></li>
+            <li><a href="https://youtube.com/c/peshgaman">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                </a></li>
+            <li><a href="https://github.com/nasir-ahmad3">
+            		<ion-icon name="logo-github"></ion-icon>
+                </a></li>
+        </ul>
+        <p>پیشگامان رسانه موفقیت</p>
+    </footer>
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="{% static 'blog/assets/js/jquery.min.js' %}"></script>
+	<script src="{% static 'blog/assets/js/owl.carousel.min.js' %}"></script>
+
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+	<script type="text/javascript" src="{% static 'blog/assets/js/jquery.sliderPro.min.js' %}"></script>
+	<!-- <script type="text/javascript" src="{% static 'blog/assets/js/slider.js' %}"></script> -->
+	<script type="text/javascript">
+		$( document ).ready(function( $ ) {
+			$( '#example1' ).sliderPro({
+				width: 960,
+				height: 500,
+				arrows: true,
+				buttons: false,
+				waitForLayers: true,
+				thumbnailWidth: 200,
+				thumbnailHeight: 100,
+				thumbnailPointer: true,
+				autoplay: false,
+				autoScaleLayers: false,
+				breakpoints: {
+					500: {
+						thumbnailWidth: 120,
+						thumbnailHeight: 50
+					}
+				}
+			});
+		});
+	</script>
+
+
+	<script type="text/javascript" src="{% static 'blog/assets/js/main.js' %}"></script>
+</body>
+</html>

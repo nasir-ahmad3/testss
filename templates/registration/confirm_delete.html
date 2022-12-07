@@ -1,0 +1,56 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}حذف{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 395px;">
+            <div class="card card-danger col-md-6 my-5 mx-auto">
+              <div class="card-header">
+                <h3 class="card-title float-left">
+                  {% if request.resolver_match.url_name == 'article_delete' %}
+                    حذف مقاله انتخاب شده
+                  {% elif request.resolver_match.url_name == 'category_delete' %}
+                    حذف دسته بندی
+                  {% elif request.resolver_match.url_name == 'suggested_article_delete' %}
+                    حذف پیشنهاد
+                  {% elif request.resolver_match.url_name == 'video_delete' %}
+                    حذف ودیو
+                	{% elif request.resolver_match.url_name == 'ProfileDelete' %}
+                    حذف پروفایل
+                  {% endif %}
+               	</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post">{% csrf_token %}
+                <div class="card-body">
+                  {% if request.resolver_match.url_name == 'article_delete' %}
+                    <p>آیا از حذف مقاله <<{{object}}>> مطمعن استید ؟</p>
+                  {% elif request.resolver_match.url_name == 'category_delete' %}
+                    <p>آیا از حذف دسته بندی <<{{object}}>> مطمعن استید ؟</p>
+                  {% elif request.resolver_match.url_name == 'suggested_article_delete' %}
+                    <p>آیا از حذف مقاله پیشنهادی  <<{{object}}>> مطمعن استید ؟</p>
+                  {% elif request.resolver_match.url_name == 'video_delete' %}
+                    <p>آیا از حذف ودیو  <<{{object.video_title}}>> مطمعن استید ؟</p>
+                  {% elif request.resolver_match.url_name == 'ProfileDelete' %}
+                    <p>آیا از حذف حساب کاربری خود مطمعن استید ؟</p>
+                  {% endif %}
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-danger">حذف</button>
+                  {% if request.resolver_match.url_name == 'article_delete' %}
+                    <a href="{% url 'account:home' %}" class="btn btn-success">برگشت</a>
+                  {% elif request.resolver_match.url_name == 'category_delete' %}
+                    <a href="{% url 'account:category_list' %}" class="btn btn-success">برگشت</a>
+                  {% elif request.resolver_match.url_name == 'suggested_article_delete' %}
+                    <a href="{% url 'account:suggested_article' %}" class="btn btn-success">برگشت</a>
+                  {% elif request.resolver_match.url_name == 'video_delete' %}
+                    <a href="{% url 'account:videos' %}" class="btn btn-success">برگشت</a>
+                  {% elif request.resolver_match.url_name == 'ProfileDelete' %}
+                    <a href="{% url 'account:profile' %}" class="btn btn-success">برگشت</a>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+</div>
+{% endblock %}

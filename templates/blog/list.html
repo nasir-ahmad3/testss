@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+{% load humanize %}
+{% load base_tags %}
+{% block title %}
+	{% block titletwo %}پیشگامان{% endblock %}
+{% endblock %}
+
+{% block main %}
+	{% random_choices %}
+	{% over_suggest %}
+	<section class="category-last">
+		{% category_right %}
+		<section class="last">
+			<h1 class="title">{% block page_title %}{% endblock %}</h1>
+			<div class="box-wrapper">
+				{% for article in object_list %}
+					<div class="box">
+						<p class="title">{{article.title}}</p>
+						<div>
+							<div class="img" style="background-image: url({{article.images.url}});"></div>
+							<div class="des-wrapper">
+								<p class="des">{{article.description|safe|truncatewords:'30'}}</p>						
+								<div class="publish">توسط: <a href="{% url 'blog:author_list' article.author.username %}" class="author"> {{article.author.get_full_name}} </a>در {{article.publish | naturaltime}}</div>
+								<div class="view">بازدید ها : <span>{{article.hits.count}}</span></div>
+								<a class="btn" href="{% url 'blog:detail' article.slug %}">ادامه مطلب</a>
+							</div>
+						</div>
+					</div>
+					<hr>
+				{% empty %}
+					<p style="margin-right: 50px;">
+						متاسفانه محتویاتی برای نمایش وجود ندارد
+					</p>
+				{% endfor %}
+			</div>
+			{% if is_paginated %}
+				<div class="pegination">
+					{% if page_obj.has_next %}
+						<a href="{% block next_page %}{% endblock %}" class="btn-right">صفحه یی بعدی</a>
+					{% endif %}
+					{% if page_obj.has_previous %}
+						<a href="{% block previous_page %}{% endblock %}" class="btn-left">صفحه یی قبلی</a>
+					{% endif %}
+				</div>
+			{% endif %}
+		</section>
+		{% category_left %}
+	</section>
+	{% most_hits %}
+{% endblock %}

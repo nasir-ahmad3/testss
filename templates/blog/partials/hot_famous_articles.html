@@ -1,0 +1,51 @@
+{% load humanize %}
+<section class="new-more">
+	<h1 class="title">پربازدید ترین اخبار روز</h1>
+	<div class="box-wrapper">
+		<div class="box box-larg" style="background-image: url({{larg_famous_article.images.url}});">
+			<div class="category"><a href="{% url 'blog:category' larg_famous_article.category.slug %}" style="color: #fff !important">{{larg_famous_article.category.title}}</a></div>
+			<div class="title"><a href="{% url 'blog:detail' larg_famous_article.slug %}">{{larg_famous_article.title}}</a></div>
+			<div class="publish">نوشته شده توسط : <a href="{% url 'blog:author_list' larg_famous_article.author.username %}">{{larg_famous_article.author.get_full_name}}</a><div class="time">{{ larg_famous_article.publish | naturaltime }}</div></div>				
+		</div>
+		<div class="box-small">
+			{% for article in famous_article %}
+				{% if article != larg_famous_article %}
+					<div class="box">
+						<div class="img" style="background-image: url({{article.images.url}});"></div>
+						<div class="des">
+							<div class="title"><a href="{% url 'blog:detail' article.slug %}">{{article.title | truncatewords:30}}</a></div>
+							<div class="publish">نوشته شده توسط <a href="{% url 'blog:author_list' article.author.username %}">{{article.author.get_full_name}}</a> | {{article.publish | naturaltime}}</div>
+						</div>
+					</div>
+				{% endif %}
+			{% empty %}
+				<p>متاسفانه محتویاتی برای نمایش وجود ندارد</p>
+			{% endfor %}
+		</div>			
+	</div>
+</section>
+<section class="new-more">
+	<h1 class="title">پر بحث ترین اخبار روز</h1>
+	<div class="box-wrapper">
+		<div class="box box-larg" style="background-image: url({{hot_larg_article.images.url}});">
+			<div class="category"><a href="{% url 'blog:category' hot_larg_article.category.slug %}" style="color: #fff !important">{{hot_larg_article.category.title}}</a></div>
+			<div class="title"><a href="{% url 'blog:detail' hot_larg_article.slug %}">{{hot_larg_article.title}}</a></div>
+			<div class="publish">نوشته شده توسط : <a href="{% url 'blog:author_list' hot_larg_article.author.username %}">{{hot_larg_article.author.get_full_name}}</a><div class="time">{{ hot_larg_article.publish | naturaltime }}</div></div>				
+		</div>
+		<div class="box-small">
+			{% for article in hot_Article %}
+				{% if article != hot_larg_article %}
+					<div class="box">
+						<div class="img" style="background-image: url({{article.images.url}});"></div>
+						<div class="des">
+							<div class="title"><a href="{% url 'blog:detail' article.slug %}">{{article.title | truncatewords:30}}</a></div>
+							<div class="publish">نوشته شده توسط <a href="{% url 'blog:author_list' article.author.username %}">{{article.author.get_full_name}}</a> | {{article.publish | naturaltime}}</div>
+						</div>
+					</div>
+				{% endif %}
+			{% empty %}
+				<p>متاسفانه محتویاتی برای نمایش وجود ندارد</p>
+			{% endfor %}
+		</div>			
+	</div>
+</section>

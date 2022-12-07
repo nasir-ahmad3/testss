@@ -1,0 +1,33 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}مقالات پیشنهادی{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 395px;">
+            <div class="card card-primary m-3">
+              <div class="card-header">
+                <h3 class="card-title float-left">
+                	{% if request.resolver_match.url_name == 'suggested_article_create' %}
+                		اضافه کردن مقاله پیشنهادی
+                	{% else %}
+                		ایدیت مقاله پیشنهادی
+                	{% endif %}
+               	</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">{{ form.article|as_crispy_field }}</div>
+                        <div class="col-6">{{form.publish|as_crispy_field}}</div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-success">ذخیره</button>
+                </div>
+              </form>
+            </div>
+</div>
+{% endblock %}

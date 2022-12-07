@@ -1,0 +1,43 @@
+{% extends 'registration/base.html' %}
+{% load humanize %}
+{% block title %}مقالات پیشنهادی ما{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 53px;">
+	<div class="col-12 my-3">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title float-left">مقالات پیشنهادی ما</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>شماره</th>
+              <th>عنوان</th>
+              <th>حذف پیشنهاد</th>
+              <th>زمان انتشار</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in object_list	 %}
+            	<tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{article.article.title}}</td>
+                <td>
+                    <a href="{% url 'account:suggested_article_delete' article.pk %}" class="badge badge-danger">حذف</a>
+                </td>
+                <td>{{article.publish|naturaltime}}</td>
+            	</tr>
+          	{% empty %}
+          		<p>متاسفانه محتویاتی برای نمایش وجود ندارد</p>
+          	{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+{% endblock %}

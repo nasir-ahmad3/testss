@@ -1,0 +1,60 @@
+{% extends 'registration/base.html' %}
+{% load humanize %}
+{% block title %}لیست دسته بندی ها{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 53px;">
+	<div class="col-12 my-3">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title float-left">لیست دسته بندی ها</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>عنوان</th>
+              <th>زیر مجموعه</th>
+              <th>وضعیت</th>
+              <th>پوزیشن</th>
+              <th>حذف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in object_list	 %}
+            	<tr>
+                <td><a href="{% url 'account:category_update' category.pk %}">{{category.title}}</a></td>
+                <td>
+                  {% if category.parent == None %}
+                    -
+                  {% else %}
+                    {{category.parent}}
+                  {% endif %}
+                </td>
+             		<td>
+                  {% if category.status %}
+                    <div class="badge badge-success">منتشر شده</div>
+                    <a href="{% url 'blog:category' category.slug %}" class="badge badge-primary">نمایش در سایت</a>
+                  {% else %}
+                    <div class="badge badge-danger">پیش نویس</div>
+                  {% endif %}
+                </td>
+                <td>
+                  {{category.position}}
+                </td>
+                <td>
+                  <a href="{% url 'account:category_delete' category.pk %}" class="badge badge-danger">حذف دسته بندی</a>
+                </td>
+            	</tr>
+          	{% empty %}
+          		<p>متاسفانه محتویاتی برای نمایش وجود ندارد</p>
+          	{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+{% endblock %}

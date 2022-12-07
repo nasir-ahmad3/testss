@@ -1,0 +1,63 @@
+{% extends 'registration/base.html' %}
+{% load humanize %}
+{% block title %}لیست مقالات{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 53px;">
+	<div class="col-12 my-3">
+    <div class="card">
+      <div class="card-header badge-primary">
+        <h3 class="card-title float-left">لیست مقالات</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>عنوان</th>
+              <th>نویسنده</th>
+              <th>دسته بندی</th>
+              <th>عکس</th>
+              <th>توضیحات</th>
+              <th>زمان انتشار</th>
+              <th>وضعیت</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in object_list	 %}
+            	<tr>
+             		<td>
+                  {% if request.user.is_superuser or article.status == 'd' %}
+                   <a href="{% url 'account:article_update' article.pk %}">{{article.title|truncatewords:30}}</a> 
+                  {% else %}
+                    {{article.title|truncatewords:30}}
+                  {% endif %}
+                </td>
+             		<td>{{article.author.get_full_name}}</td>
+             		<td>{{article.category}}</td>
+             		<td><img src="{{article.images.url}}" width="150px" height="100px" style="border-radius: 5px;"></td>
+             		<td>{{article.description|safe|truncatewords:30}}</td>
+             		<td>{{article.publish|naturaltime}}</td>
+             		<td>
+             			{% if article.status == 'p' %}
+             				<div class="badge badge-success">منتشر شده</div>
+             				<a href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش در سایت</a>
+             			{% else %}
+             				<div class="badge badge-warning">پیش نویس</div>
+             			{% endif %}
+                  {% if request.user.is_superuser  or request.user.is_author and article.status == 'd' %}
+                    <a href="{% url 'account:article_delete' article.pk %}" class="badge badge-danger">حذف مقاله</a>
+                  {% endif %}
+             		</td>
+            	</tr>
+          	{% empty %}
+          		<p>متاسفانه محتویاتی برای نمایش وجود ندارد</p>
+          	{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+{% endblock %}

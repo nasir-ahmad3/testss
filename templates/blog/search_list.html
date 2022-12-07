@@ -1,0 +1,14 @@
+{% extends 'blog/list.html' %}
+
+{% block titletwo %}{{search}}{% endblock %}
+{% block page_title %}جستجوی : {{search}}{% endblock %}
+
+
+{% block next_page %}
+	{% url 'blog:search_list' page_obj.next_page_number %}?q={{search}}
+{% endblock %}
+
+
+{% block previous_page %}
+	{% url 'blog:search_list' page_obj.previous_page_number %}?q={{search}}
+{% endblock %}

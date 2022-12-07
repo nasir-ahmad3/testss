@@ -1,0 +1,21 @@
+{% for cate in category %}
+	{% if cate.parent == None %}
+		<li>
+			<div class="item">
+				<a href="{% url 'blog:category' cate.slug %}">
+					{{cate.title}}
+				</a>
+				<span class="btn"></span>
+			</div>
+			{% if cate.child.active %}
+				<ul>
+					{% for c in cate.child.active %}
+						<li>
+							<a href="{% url 'blog:category' c.slug %}">{{c}}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</li>
+	{% endif %}
+{% endfor %}

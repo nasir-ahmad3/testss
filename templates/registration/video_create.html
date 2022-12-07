@@ -1,0 +1,35 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}ودیو{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 395px;">
+            <div class="card card-primary  m-3">
+              <div class="card-header bg-primary ">
+                <h3 class="card-title float-left">
+                	{% if request.resolver_match.url_name == 'video_create' %}
+                		افزودن ودیو
+                	{% else %}
+                		ایدیت ویدو
+                	{% endif %}
+               	</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post">{% csrf_token %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">{{ form.video|as_crispy_field }}</div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-success">ذخیره</button>
+                  {% if request.resolver_match.url_name == "video_update" %}
+                    <a href="{% url 'account:videos' %}" class="btn btn-danger">حذف</a>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+</div>
+{% endblock %}

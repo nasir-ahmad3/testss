@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load base_tags %}
+{% load comment_tags %}
+{% load humanize %}
+
+{% block title %}{{object.title}}{% endblock %}
+{% block main %}
+	{% suggest article %}
+	<div class="content">
+		<section class="main">
+			<h1 class="title">{{object.title}}</h1>
+			<div class="des">
+				نویسنده : <a href="{% url 'blog:author_list' object.author.username %}">{{object.author.get_full_name}}</a> | {{object.publish | naturaltime}}
+				<div class="hits">دسته بندی: <a href="{% url 'blog:category' object.category.slug %}">{{object.category.title}}</a> |بازدید ها : {{object.hits.count}}</div>
+			</div>
+			<div class="img" style="background-image: url({{object.images.url}});"></div>
+			<p class="main-content">
+				{{object.description|safe}}
+				{% render_comments object request %}
+				{% include_bootstrap %}
+			</p>
+		</section>
+		{% detail_this_category object object.slug %}
+	</div>	
+	{% hot_famous_article_detail object %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% load humanize %}
+{% load embed_video_tags %}
+<section class="category category-right">
+	<div class="cat">
+		<p class="title">از یوتیوب ما :</p>
+		{% for video in videos %}
+			<hr>
+			<div class="box">
+				<div>	
+					<p style="font-size: 12px;">{{video.video_title}}</p>
+					<div class="title"><a href="" style="color: var(--font-gray);">{% video video.video '200x150' %}</a></div>
+				</div>
+			</div>
+			<hr>
+		{% endfor %}
+	</div>
+</section>

@@ -1,0 +1,11 @@
+<section class="detail-suggest">
+	<div class="box">
+		<h3 class="title"><a href="{% url 'blog:detail' hot_article.slug %}">{{hot_article.title}}</a></h3>
+	</div>
+	<div class="box">
+		<h3 class="title"><a href="{% url 'blog:detail' famous_article.slug %}">{{famous_article.title}}</a></h3>
+	</div>
+	<div class="box">
+		<h3 class="title"><a href="{% url 'blog:detail' last_article.slug %}">{{last_article}}</a></h3>
+	</div>
+</section>

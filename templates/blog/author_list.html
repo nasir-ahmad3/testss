@@ -1,0 +1,14 @@
+{% extends 'blog/list.html' %}
+
+{% block titletwo %}{{author}}{% endblock %}
+{% block page_title %}{{author}}:{% endblock %}
+
+
+{% block next_page %}
+	{% url 'blog:author_list' author.username page_obj.next_page_number %}
+{% endblock %}
+
+
+{% block previous_page %}
+	{% url 'blog:author_list' author.username page_obj.previous_page_number %}
+{% endblock %}

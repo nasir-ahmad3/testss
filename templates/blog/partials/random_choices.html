@@ -1,0 +1,8 @@
+<section class="bests">
+	{% for article in random_article %}
+		<div class="box" style="background-image: url({{article.images.url}});">
+			<div class="category">{{article.category.title}}</div>
+			<div class="title"><a href="{% url 'blog:detail' article.slug %}" style="color:#fff;">{{article.title}}</a></div>
+		</div>	
+	{% endfor %}	
+</section>

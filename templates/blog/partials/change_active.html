@@ -1,0 +1,5 @@
+{% if request.resolver_match.url_name == my_url_name %}
+	active
+{% else %}
+	{{request.resolver_match.url_name}}
+{% endif %}

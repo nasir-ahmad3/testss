@@ -1,0 +1,5 @@
+{% autoescape off %}  
+سلام {{ user.username }},  
+شما درخواست برای ایجاد حساب کاربری  به سایت کردید برای تایید ایمیل لطفا با لینک ذیل کلیک کنید,  
+http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}  
+{% endautoescape %}  

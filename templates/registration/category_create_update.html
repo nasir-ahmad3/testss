@@ -1,0 +1,43 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}دسته بندی{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="min-height: 395px;">
+            <div class="card card-primary m-3">
+              <div class="card-header">
+                <h3 class="card-title float-left">
+                	{% if request.resolver_match.url_name == 'category_create' %}
+                		اضافه کردن دستده بندی
+                	{% else %}
+                		ایدیت دسته بندی
+                	{% endif %}
+               	</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">{{ form.title|as_crispy_field }}</div>
+                        <div class="col-6">{{form.slug|as_crispy_field}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">{{ form.parent|as_crispy_field }}</div>
+                        <div class="col-6">{{form.position|as_crispy_field}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">{{form.status|as_crispy_field}}</div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-success">ذخیره</button>
+                  {% if request.resolver_match.url_name == "category_update" %}
+                    <a href="{% url 'account:category_delete' category.pk %}" class="btn btn-danger">حذف</a>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+</div>
+{% endblock %}
